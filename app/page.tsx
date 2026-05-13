@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Activity,
   CloudRain,
   CloudSun,
   Compass,
@@ -42,13 +43,13 @@ type Place = {
 };
 
 const DEFAULT_PLACE: Place = {
-  label: "Sao Paulo, BR",
+  label: "São Paulo, BR",
   latitude: -23.5505,
   longitude: -46.6333,
 };
 
 const weatherText: Record<number, string> = {
-  0: "Ceu limpo",
+  0: "Céu limpo",
   1: "Principalmente claro",
   2: "Parcialmente nublado",
   3: "Nublado",
@@ -96,7 +97,7 @@ async function loadForecast(place: Place, signal?: AbortSignal) {
   );
 
   if (!response.ok) {
-    throw new Error("Nao foi possivel carregar a previsao agora.");
+    throw new Error("Não foi possível carregar a previsão agora.");
   }
 
   return (await response.json()) as Forecast;
@@ -112,7 +113,7 @@ export default function Home() {
 
   const today = forecast?.daily;
   const condition = forecast
-    ? weatherText[forecast.current.weather_code] ?? "Tempo variavel"
+    ? weatherText[forecast.current.weather_code] ?? "Tempo variável"
     : "Carregando";
 
   const metrics = useMemo(() => {
@@ -120,7 +121,7 @@ export default function Home() {
 
     return [
       {
-        label: "Sensacao",
+        label: "Sensação",
         value: `${Math.round(forecast.current.apparent_temperature)}°C`,
         icon: ThermometerSun,
       },
@@ -164,7 +165,7 @@ export default function Home() {
 
   function useCurrentLocation() {
     if (!navigator.geolocation) {
-      setError("Seu navegador nao permite consultar a localizacao.");
+      setError("Seu navegador não permite consultar a localização.");
       return;
     }
 
@@ -173,7 +174,7 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const nextPlace = {
-          label: "Sua localizacao",
+          label: "Sua localização",
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
@@ -183,7 +184,7 @@ export default function Home() {
       },
       () => {
         setIsLocating(false);
-        setError("Nao foi possivel acessar sua localizacao.");
+        setError("Não foi possível acessar sua localização.");
       },
       { enableHighAccuracy: true, timeout: 10000 },
     );
@@ -193,19 +194,23 @@ export default function Home() {
 
   return (
     <main className="weather-shell">
+      <div className="ambient-grid" aria-hidden="true" />
       <section className="panel">
         <div className="topbar">
           <div>
-            <span className="eyebrow">Previsao de hoje</span>
+            <span className="eyebrow">
+              <Activity aria-hidden="true" />
+              Clima em tempo real
+            </span>
             <h1>{place.label}</h1>
           </div>
-          <div className="actions" aria-label="Acoes da previsao">
+          <div className="actions" aria-label="Ações da previsão">
             <button
               className="icon-button"
               type="button"
               onClick={() => refresh()}
-              aria-label="Atualizar previsao"
-              title="Atualizar previsao"
+              aria-label="Atualizar previsão"
+              title="Atualizar previsão"
               disabled={isLoading}
             >
               {isLoading ? <Loader2 className="spin" /> : <RefreshCw />}
@@ -214,8 +219,8 @@ export default function Home() {
               className="icon-button"
               type="button"
               onClick={useCurrentLocation}
-              aria-label="Usar localizacao atual"
-              title="Usar localizacao atual"
+              aria-label="Usar localização atual"
+              title="Usar localização atual"
               disabled={isLocating}
             >
               {isLocating ? <Loader2 className="spin" /> : <LocateFixed />}
@@ -227,6 +232,7 @@ export default function Home() {
 
         <div className="forecast-grid">
           <div className="current-card">
+            <div className="scanline" aria-hidden="true" />
             <div className="condition">
               <CloudSun aria-hidden="true" />
               <span>{condition}</span>
@@ -236,7 +242,7 @@ export default function Home() {
               <span>°C</span>
             </div>
             <p>
-              Max {today ? Math.round(today.temperature_2m_max[0]) : "--"}° ·
+              Max {today ? Math.round(today.temperature_2m_max[0]) : "--"}° /
               Min {today ? Math.round(today.temperature_2m_min[0]) : "--"}°
             </p>
           </div>
@@ -263,7 +269,7 @@ export default function Home() {
           </div>
           <div>
             <Compass aria-hidden="true" />
-            <span>Direcao do vento</span>
+            <span>Direção do vento</span>
             <strong>
               {forecast
                 ? windDirection(forecast.current.wind_direction_10m)
@@ -272,7 +278,7 @@ export default function Home() {
           </div>
           <div>
             <CloudSun aria-hidden="true" />
-            <span>Por do sol</span>
+            <span>Pôr do sol</span>
             <strong>{today ? formatHour(today.sunset[0]) : "--:--"}</strong>
           </div>
         </div>
@@ -281,7 +287,7 @@ export default function Home() {
           <span>Dados: Open-Meteo</span>
           <span>
             {updatedAt
-              ? `Atualizado as ${updatedAt.toLocaleTimeString("pt-BR", {
+              ? `Atualizado às ${updatedAt.toLocaleTimeString("pt-BR", {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}`
