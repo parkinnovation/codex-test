@@ -1,1 +1,1 @@
-Create a file named index.html containing exactly '<h1>Hello World</h1>'
+Ok, agora vamos melhorar essa interface. Crie uma aplicacao reactjs com nextjs que exiba uma tela que chama e exibe os dados da previao do tempo para hoje
