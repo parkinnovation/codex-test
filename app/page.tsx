@@ -9,11 +9,12 @@ import {
   Loader2,
   LocateFixed,
   RefreshCw,
+  Search,
   Sun,
   ThermometerSun,
   Wind,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 type Forecast = {
   current: {
@@ -40,6 +41,18 @@ type Place = {
   label: string;
   latitude: number;
   longitude: number;
+};
+
+type GeocodingResult = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  country_code?: string;
+  admin1?: string;
+};
+
+type GeocodingResponse = {
+  results?: GeocodingResult[];
 };
 
 const DEFAULT_PLACE: Place = {
@@ -103,11 +116,46 @@ async function loadForecast(place: Place, signal?: AbortSignal) {
   return (await response.json()) as Forecast;
 }
 
+async function searchPlace(query: string, signal?: AbortSignal) {
+  const params = new URLSearchParams({
+    name: query,
+    count: "1",
+    language: "pt",
+    format: "json",
+  });
+
+  const response = await fetch(
+    `https://geocoding-api.open-meteo.com/v1/search?${params.toString()}`,
+    { signal },
+  );
+
+  if (!response.ok) {
+    throw new Error("Não foi possível pesquisar essa cidade agora.");
+  }
+
+  const data = (await response.json()) as GeocodingResponse;
+  const result = data.results?.[0];
+
+  if (!result) {
+    throw new Error("Cidade não encontrada.");
+  }
+
+  return {
+    label: [result.name, result.admin1, result.country_code]
+      .filter(Boolean)
+      .join(", "),
+    latitude: result.latitude,
+    longitude: result.longitude,
+  } satisfies Place;
+}
+
 export default function Home() {
   const [place, setPlace] = useState<Place>(DEFAULT_PLACE);
+  const [searchQuery, setSearchQuery] = useState("");
   const [forecast, setForecast] = useState<Forecast | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLocating, setIsLocating] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState("");
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
 
@@ -163,6 +211,30 @@ export default function Home() {
     return () => controller.abort();
   }
 
+  function handleSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const query = searchQuery.trim();
+    if (!query) return;
+
+    const controller = new AbortController();
+    setIsSearching(true);
+    setError("");
+
+    searchPlace(query, controller.signal)
+      .then((nextPlace) => {
+        setPlace(nextPlace);
+        setSearchQuery("");
+        refresh(nextPlace);
+      })
+      .catch((caughtError: Error) => {
+        if (caughtError.name !== "AbortError") {
+          setError(caughtError.message);
+        }
+      })
+      .finally(() => setIsSearching(false));
+  }
+
   function useCurrentLocation() {
     if (!navigator.geolocation) {
       setError("Seu navegador não permite consultar a localização.");
@@ -204,27 +276,47 @@ export default function Home() {
             </span>
             <h1>{place.label}</h1>
           </div>
-          <div className="actions" aria-label="Ações da previsão">
-            <button
-              className="icon-button"
-              type="button"
-              onClick={() => refresh()}
-              aria-label="Atualizar previsão"
-              title="Atualizar previsão"
-              disabled={isLoading}
-            >
-              {isLoading ? <Loader2 className="spin" /> : <RefreshCw />}
-            </button>
-            <button
-              className="icon-button"
-              type="button"
-              onClick={useCurrentLocation}
-              aria-label="Usar localização atual"
-              title="Usar localização atual"
-              disabled={isLocating}
-            >
-              {isLocating ? <Loader2 className="spin" /> : <LocateFixed />}
-            </button>
+          <div className="toolbar">
+            <form className="city-search" onSubmit={handleSearch}>
+              <Search aria-hidden="true" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Pesquisar cidade"
+                aria-label="Pesquisar cidade"
+              />
+              <button
+                type="submit"
+                disabled={isSearching || !searchQuery.trim()}
+                aria-label="Buscar cidade"
+                title="Buscar cidade"
+              >
+                {isSearching ? <Loader2 className="spin" /> : <Search />}
+              </button>
+            </form>
+            <div className="actions" aria-label="Ações da previsão">
+              <button
+                className="icon-button"
+                type="button"
+                onClick={() => refresh()}
+                aria-label="Atualizar previsão"
+                title="Atualizar previsão"
+                disabled={isLoading}
+              >
+                {isLoading ? <Loader2 className="spin" /> : <RefreshCw />}
+              </button>
+              <button
+                className="icon-button"
+                type="button"
+                onClick={useCurrentLocation}
+                aria-label="Usar localização atual"
+                title="Usar localização atual"
+                disabled={isLocating}
+              >
+                {isLocating ? <Loader2 className="spin" /> : <LocateFixed />}
+              </button>
+            </div>
           </div>
         </div>
 
