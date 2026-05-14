@@ -143,6 +143,79 @@ h1 {
   gap: 10px;
 }
 
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.city-search {
+  width: min(360px, 42vw);
+  height: 46px;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)),
+    rgba(9, 18, 31, 0.78);
+  padding: 0 4px 0 14px;
+  box-shadow: 0 0 24px rgba(88, 230, 255, 0.08);
+}
+
+.city-search > svg {
+  width: 18px;
+  height: 18px;
+  color: var(--green);
+}
+
+.city-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+}
+
+.city-search input::placeholder {
+  color: var(--muted);
+}
+
+.city-search button {
+  width: 38px;
+  height: 38px;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(88, 230, 255, 0.12);
+  color: var(--cyan);
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.city-search button:hover:not(:disabled) {
+  background: rgba(88, 230, 255, 0.22);
+  color: #ffffff;
+}
+
+.city-search button:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.city-search button svg {
+  width: 18px;
+  height: 18px;
+}
+
 .icon-button {
   width: 46px;
   height: 46px;
@@ -385,6 +458,16 @@ footer {
 
   .actions {
     align-self: stretch;
+  }
+
+  .toolbar {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .city-search {
+    width: 100%;
   }
 
   .icon-button {
