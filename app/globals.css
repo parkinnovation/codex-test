@@ -506,7 +506,12 @@ footer {
 
 @media (max-width: 760px) {
   .weather-shell {
+    padding: 10px;
+  }
+
+  .panel {
     padding: 16px;
+    border-radius: 18px;
   }
 
   .topbar,
@@ -517,7 +522,8 @@ footer {
   }
 
   .topbar {
-    gap: 16px;
+    gap: 12px;
+    margin-bottom: 18px;
   }
 
   .actions {
@@ -532,17 +538,80 @@ footer {
 
   .city-search {
     width: 100%;
+    height: 42px;
+    border-radius: 14px;
   }
 
   .icon-button {
     flex: 1;
+    height: 42px;
+    border-radius: 14px;
   }
 
   .details {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .current-card {
-    min-height: 250px;
+    min-height: 210px;
+    border-radius: 18px;
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 10vw, 3rem);
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .condition {
+    padding: 8px 10px;
+  }
+
+  .condition svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .temperature {
+    font-size: clamp(4rem, 22vw, 5.8rem);
+  }
+
+  .temperature span {
+    margin-top: 4px;
+    font-size: clamp(1.3rem, 7vw, 1.8rem);
+  }
+
+  .current-card p {
+    font-size: 0.95rem;
+  }
+
+  .metric {
+    min-height: 116px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .metric strong {
+    font-size: 1.4rem;
+  }
+
+  .sun-band {
+    padding: 14px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .sun-band strong {
+    font-size: 1.05rem;
+  }
+
+  footer {
+    margin-top: 14px;
+    gap: 6px;
+    font-size: 0.84rem;
   }
 }
