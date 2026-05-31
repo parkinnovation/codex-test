@@ -272,12 +272,12 @@ export default function Home() {
           <div>
             <span className="eyebrow">
               <Activity aria-hidden="true" />
-              Neural weather grid
+              Retro weather grid
             </span>
             <h1>{place.label}</h1>
             <p className="hero-copy">
-              Telemetria ambiental em tempo real com visual futurista e leitura
-              instantânea.
+              Telemetria ambiental em tempo real com estética arcade, brilho
+              neon e leitura instantânea.
             </p>
           </div>
           <div className="toolbar">

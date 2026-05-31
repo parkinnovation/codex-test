@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Neural Weather",
-  description: "Painel futurista de clima com dados em tempo real",
-  themeColor: "#070b12",
+  title: "Retro Weather",
+  description: "Painel retrô de clima com dados em tempo real",
+  themeColor: "#1a1028",
 };
 
 export default function RootLayout({
