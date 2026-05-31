@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Previsão do Tempo",
-  description: "Previsão do tempo para hoje com dados em tempo real",
+  title: "Neural Weather",
+  description: "Painel futurista de clima com dados em tempo real",
   themeColor: "#070b12",
 };
 

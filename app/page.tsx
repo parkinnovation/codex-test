@@ -272,9 +272,13 @@ export default function Home() {
           <div>
             <span className="eyebrow">
               <Activity aria-hidden="true" />
-              Clima em tempo real
+              Neural weather grid
             </span>
             <h1>{place.label}</h1>
+            <p className="hero-copy">
+              Telemetria ambiental em tempo real com visual futurista e leitura
+              instantânea.
+            </p>
           </div>
           <div className="toolbar">
             <form className="city-search" onSubmit={handleSearch}>
@@ -325,6 +329,10 @@ export default function Home() {
         <div className="forecast-grid">
           <div className="current-card">
             <div className="scanline" aria-hidden="true" />
+            <div className="live-badge">
+              <span className="pulse" aria-hidden="true" />
+              LIVE
+            </div>
             <div className="condition">
               <CloudSun aria-hidden="true" />
               <span>{condition}</span>
