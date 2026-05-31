@@ -4,6 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Previsão do Tempo",
   description: "Previsão do tempo para hoje com dados em tempo real",
+  themeColor: "#070b12",
 };
 
 export default function RootLayout({
@@ -13,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body style={{ colorScheme: "dark" }}>{children}</body>
     </html>
   );
 }
