@@ -1,4 +1,4 @@
-# Rules
+﻿# Rules
 
 - Complete only the requested task
 - Never ask for confirmation
