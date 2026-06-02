@@ -1,21 +1,21 @@
 :root {
   color-scheme: dark;
-  --bg-0: #140b1f;
-  --bg-1: #221131;
-  --bg-2: #3b1745;
-  --bg-3: #5a2150;
-  --ink: #fff4df;
-  --muted: #d8bda5;
-  --panel: rgba(27, 14, 34, 0.88);
-  --panel-strong: rgba(37, 18, 47, 0.96);
-  --line: rgba(255, 182, 92, 0.22);
-  --line-strong: rgba(255, 182, 92, 0.44);
-  --cyan: #ff7bd1;
-  --teal: #ffd36e;
-  --blue: #ff9b5f;
-  --lime: #7cf4c5;
-  --amber: #ffe28a;
-  --shadow: rgba(10, 4, 18, 0.72);
+  --bg-0: #08101f;
+  --bg-1: #111f3a;
+  --bg-2: #1c3564;
+  --bg-3: #2a4d8b;
+  --ink: #f7fbff;
+  --muted: #c0d3ff;
+  --panel: rgba(10, 22, 44, 0.88);
+  --panel-strong: rgba(14, 28, 58, 0.96);
+  --line: rgba(82, 192, 255, 0.26);
+  --line-strong: rgba(82, 192, 255, 0.5);
+  --cyan: #58e6ff;
+  --teal: #ffd84d;
+  --blue: #7b8cff;
+  --lime: #6dffb7;
+  --amber: #ffb347;
+  --shadow: rgba(3, 9, 20, 0.72);
 }
 
 * {
@@ -33,9 +33,9 @@ body {
   color: var(--ink);
   font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255, 123, 209, 0.22), transparent 18rem),
-    radial-gradient(circle at 82% 16%, rgba(255, 211, 110, 0.2), transparent 16rem),
-    radial-gradient(circle at 74% 88%, rgba(255, 155, 95, 0.18), transparent 20rem),
+    radial-gradient(circle at 18% 18%, rgba(88, 230, 255, 0.22), transparent 18rem),
+    radial-gradient(circle at 82% 16%, rgba(255, 216, 77, 0.2), transparent 16rem),
+    radial-gradient(circle at 74% 88%, rgba(109, 255, 183, 0.18), transparent 20rem),
     linear-gradient(145deg, var(--bg-0) 0%, var(--bg-1) 34%, var(--bg-2) 68%, var(--bg-3) 100%);
   background-attachment: fixed;
 }
