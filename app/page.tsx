@@ -272,12 +272,11 @@ export default function Home() {
           <div>
             <span className="eyebrow">
               <Activity aria-hidden="true" />
-              Retro weather grid
+              Clima em tempo real
             </span>
             <h1>{place.label}</h1>
             <p className="hero-copy">
-              Telemetria ambiental em tempo real com estética arcade, brilho
-              neon e leitura instantânea.
+              Visão direta do clima com leitura compacta e sem excessos.
             </p>
           </div>
           <div className="toolbar">
