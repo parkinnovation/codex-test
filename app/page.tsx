@@ -272,12 +272,11 @@ export default function Home() {
           <div>
             <span className="eyebrow">
               <Activity aria-hidden="true" />
-              Estacao meteorologica classica
+              Clima em tempo real
             </span>
             <h1>{place.label}</h1>
             <p className="hero-copy">
-              Boletim meteorológico com visual vintage, tons sépia e leitura
-              clara ao estilo jornal de época.
+              Visão direta do clima com leitura compacta e sem excessos.
             </p>
           </div>
           <div className="toolbar">
