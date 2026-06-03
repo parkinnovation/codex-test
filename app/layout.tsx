@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Retro Weather",
   description: "Painel retrô de clima com dados em tempo real",
-  themeColor: "#1a1028",
+  themeColor: "#c29a63",
 };
 
 export default function RootLayout({
